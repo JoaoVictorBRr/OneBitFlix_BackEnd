@@ -5,6 +5,7 @@ import { episodesController } from './controllers/episodesController'
 import { authController } from './controllers/authController'
 import { esuareAtuhViaQuery } from './middlewares/auth'
 import { ensureAuth } from './middlewares/auth'
+import { favoriteController } from './controllers/favoriteController'
 
 const router = express.Router()
 
@@ -20,5 +21,7 @@ router.get('/courses/search',ensureAuth ,coursesController.search)
 router.get('/courses/:id',ensureAuth ,coursesController.show)
 
 router.get('/episodes/stream',esuareAtuhViaQuery , episodesController.stream)
+
+router.post('/favorites', ensureAuth,favoriteController.save)
 
 export { router }
