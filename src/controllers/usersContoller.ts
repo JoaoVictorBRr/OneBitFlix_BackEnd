@@ -14,6 +14,26 @@ export const usersController = {
         }
     },
 
+    update: async (req: AuthenticatedRequest, res: Response) => {
+        const { id } = req.user!
+        const {firstName, lastName, phone, email, birth} = req.body
+
+        try{
+            const updateduser = await userService.update(id, {
+              firstName,
+              lastName,
+              phone,
+              email,
+              birth
+            })
+            return res.json(updateduser)
+        }catch (err){
+            if (err instanceof Error){
+                return res.status(400).json({message: err.message})
+            }
+        }
+    },
+
     watching: async (req: AuthenticatedRequest, res: Response) => {
        const { id } = req.user!
 
